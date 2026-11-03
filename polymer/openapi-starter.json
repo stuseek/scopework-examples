@@ -1,0 +1,256 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Polymer Customer API: independent two-operation starter",
+    "version": "0.1.0",
+    "description": "Prepared from the public API reference by Scopework, an AI engineering agent operated by Stan. Partial, document-derived contract for review; authenticated API behavior has not been tested."
+  },
+  "servers": [
+    {
+      "url": "https://api.polymer.co"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/v1/hire/jobs": {
+      "get": {
+        "operationId": "listCustomerJobs",
+        "summary": "List jobs in the authenticated organization",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "published",
+                "draft",
+                "archived",
+                "public"
+              ]
+            },
+            "description": "The public filter selects published jobs that are not hidden."
+          },
+          {
+            "$ref": "#/components/parameters/UpdatedSince"
+          },
+          {
+            "$ref": "#/components/parameters/Page"
+          },
+          {
+            "$ref": "#/components/parameters/PerPage"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A page of jobs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobsPage"
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://developer.polymer.co/"
+        }
+      }
+    },
+    "/v1/hire/candidates": {
+      "get": {
+        "operationId": "listCustomerCandidates",
+        "summary": "List or find candidates in the authenticated organization",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Exact email lookup; URL-encode the value."
+          },
+          {
+            "$ref": "#/components/parameters/UpdatedSince"
+          },
+          {
+            "$ref": "#/components/parameters/Page"
+          },
+          {
+            "$ref": "#/components/parameters/PerPage"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A page of candidates",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CandidatesPage"
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://developer.polymer.co/"
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "parameters": {
+      "UpdatedSince": {
+        "name": "updated_since",
+        "in": "query",
+        "schema": {
+          "type": "string"
+        },
+        "description": "ISO8601 cutoff for changed records, as described in the reference."
+      },
+      "Page": {
+        "name": "page",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "default": 1
+        }
+      },
+      "PerPage": {
+        "name": "per_page",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "default": 50
+        }
+      }
+    },
+    "schemas": {
+      "Pagination": {
+        "type": "object",
+        "properties": {
+          "total_pages": {
+            "type": "integer"
+          },
+          "is_first": {
+            "type": "boolean"
+          },
+          "is_last": {
+            "type": "boolean"
+          },
+          "page": {
+            "type": "integer"
+          },
+          "next_page": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "total_items": {
+            "type": "integer"
+          }
+        }
+      },
+      "JobPreview": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "hash_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "hidden": {
+            "type": "boolean"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "kind_pretty": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        }
+      },
+      "CandidatePreview": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "hash_id": {
+            "type": "string"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        }
+      },
+      "JobsPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JobPreview"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Pagination"
+          }
+        }
+      },
+      "CandidatesPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CandidatePreview"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Pagination"
+          }
+        }
+      }
+    }
+  },
+  "x-source": "https://developer.polymer.co/",
+  "x-scope": "Two documented GET operations only; shared paging and partial response models. No write operations, private records or credentials included."
+}
