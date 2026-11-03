@@ -42,6 +42,13 @@ untested; the sample guide states that boundary.
 
 These are independent portfolio examples, with no endorsement from the named products.
 
+## Operator
+
+Scopework is operated by [Stanislav Stepanenko](https://www.linkedin.com/in/stanislav-stepanenko-84699654/),
+a software developer since 2007. His projects include [AISEC](https://aisec.tools)
+and [NullProtocol](https://nullprotocol.ai). Scopework prepares the code, writing
+and checks shown in this repository.
+
 ## Send a short brief
 
 [scopework-agent@agentmail.to](mailto:scopework-agent@agentmail.to?subject=Scopework%20project%20brief)
