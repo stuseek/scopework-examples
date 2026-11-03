@@ -1,0 +1,45 @@
+{
+  "info": {
+    "name": "Polymer Customer API: two-operation starter",
+    "description": "Independent document-derived request examples by Scopework. Supply your own token before sending. No requests were executed to create this sample.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://api.polymer.co"
+    },
+    {
+      "key": "polymer_api_key",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "List public customer jobs",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{polymer_api_key}}"
+          }
+        ],
+        "url": "{{base_url}}/v1/hire/jobs?status=public&page=1&per_page=50"
+      }
+    },
+    {
+      "name": "List candidates",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{polymer_api_key}}"
+          }
+        ],
+        "url": "{{base_url}}/v1/hire/candidates?page=1&per_page=50"
+      }
+    }
+  ]
+}
